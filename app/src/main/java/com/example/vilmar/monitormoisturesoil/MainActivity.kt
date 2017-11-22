@@ -1,18 +1,30 @@
 package com.example.vilmar.monitormoisturesoil
 
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.hardware.usb.UsbDevice
+import android.hardware.usb.UsbManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import com.physicaloid.lib.Physicaloid
-
 
 class MainActivity : AppCompatActivity() {
 
+    private val ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION"
+
     private lateinit var mValue: TextView
+    private lateinit var mUsbManager: UsbManager
 
-    private lateinit var mPhysicaloid: Physicaloid
+    private val mBroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == ACTION_USB_PERMISSION) {
 
-    private val mBaudrate: Int = 9600
+            }
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,16 +36,32 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         mValue = findViewById(R.id.tv_value_moisture)
+        mUsbManager = getSystemService(Context.USB_SERVICE) as UsbManager
 
-        mPhysicaloid = Physicaloid(this)
-        mPhysicaloid.setBaudrate(mBaudrate)
+        val usbDevices: HashMap<String, UsbDevice> = mUsbManager.deviceList
 
-        if (mPhysicaloid.open()) {
-            mPhysicaloid.addReadListener { size ->
-                val buf = ByteArray(size)
-                mPhysicaloid.read(buf, size)
-                mValue.text = buf.toString()
+        if (!usbDevices.isEmpty()) {
+            var keep = true
+
+            for (entry in usbDevices.entries) {
+                var device: UsbDevice = entry.value
+                var deviceVID: Int = device.vendorId
+
+                if (deviceVID == 0x2341) { //Arduino Vendor ID
+                    var pi = PendingIntent.getBroadcast(this, 0,
+                            Intent(ACTION_USB_PERMISSION), 0)
+
+                    mUsbManager.requestPermission(device, pi)
+
+                    keep = false
+
+                }
+
+                if (!keep) {
+                    break
+                }
             }
         }
+
     }
 }
