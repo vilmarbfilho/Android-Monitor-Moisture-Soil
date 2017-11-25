@@ -12,4 +12,11 @@
         android:padding="10dp"
         android:src="@drawable/ic_arrow_back_white_24dp" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_settings_devices"
+        android:scrollbars="vertical"
+        android:layout_marginLeft="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>
