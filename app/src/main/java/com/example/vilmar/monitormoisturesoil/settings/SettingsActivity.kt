@@ -72,7 +72,7 @@ class SettingsActivity : AppCompatActivity() {
     private fun init() {
         mRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        mDeviceAdapter = USBDeviceAdapter(mEntries)
+        mDeviceAdapter = USBDeviceAdapter(mEntries, getUSBDeviceOnClick())
 
         mRecyclerView.adapter = mDeviceAdapter
 
@@ -111,6 +111,14 @@ class SettingsActivity : AppCompatActivity() {
     private fun toastIt(msg: String) {
         runOnUiThread {
             Toast.makeText(SettingsActivity@this, msg, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getUSBDeviceOnClick(): USBDeviceAdapter.USBDeviceOnClick {
+        return object : USBDeviceAdapter.USBDeviceOnClick {
+            override fun onClickDevice(usbSerialPort: UsbSerialPort) {
+                toastIt("fired")
+            }
         }
     }
 
