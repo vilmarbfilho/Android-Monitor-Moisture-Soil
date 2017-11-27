@@ -11,9 +11,7 @@ import android.widget.ImageButton
 import com.example.vilmar.monitormoisturesoil.R
 import com.example.vilmar.monitormoisturesoil.settings.adapter.USBDeviceAdapter
 import com.hoho.android.usbserial.driver.UsbSerialPort
-import android.text.method.TextKeyListener.clear
-import android.widget.Toast
-import com.hoho.android.usbserial.driver.UsbSerialDriver
+import com.example.vilmar.monitormoisturesoil.AppApplication
 import com.hoho.android.usbserial.driver.UsbSerialProber
 
 
@@ -108,16 +106,11 @@ class SettingsActivity : AppCompatActivity() {
         }.execute(null as Void?)
     }
 
-    private fun toastIt(msg: String) {
-        runOnUiThread {
-            Toast.makeText(SettingsActivity@this, msg, Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun getUSBDeviceOnClick(): USBDeviceAdapter.USBDeviceOnClick {
         return object : USBDeviceAdapter.USBDeviceOnClick {
             override fun onClickDevice(usbSerialPort: UsbSerialPort) {
-                toastIt("fired")
+                AppApplication.instance.usbSerialPort = usbSerialPort
+                finish()
             }
         }
     }
