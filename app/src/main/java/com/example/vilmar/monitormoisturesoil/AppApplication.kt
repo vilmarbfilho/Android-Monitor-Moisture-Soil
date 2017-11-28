@@ -8,7 +8,7 @@ import com.hoho.android.usbserial.driver.UsbSerialPort
  */
 class AppApplication : Application() {
 
-    lateinit var usbSerialPort : UsbSerialPort
+    var usbSerialPort : UsbSerialPort? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -19,6 +19,7 @@ class AppApplication : Application() {
 
     companion object {
         lateinit var instance: AppApplication
+        var sPort: UsbSerialPort? = null
     }
 
 }

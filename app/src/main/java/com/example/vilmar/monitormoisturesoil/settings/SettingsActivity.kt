@@ -64,10 +64,10 @@ class SettingsActivity : AppCompatActivity() {
 
         mRecyclerView = findViewById(R.id.rv_settings_devices)
 
-        init()
+        setupActivity()
     }
 
-    private fun init() {
+    private fun setupActivity() {
         mRecyclerView.layoutManager = LinearLayoutManager(this)
 
         mDeviceAdapter = USBDeviceAdapter(mEntries, getUSBDeviceOnClick())
@@ -109,7 +109,7 @@ class SettingsActivity : AppCompatActivity() {
     private fun getUSBDeviceOnClick(): USBDeviceAdapter.USBDeviceOnClick {
         return object : USBDeviceAdapter.USBDeviceOnClick {
             override fun onClickDevice(usbSerialPort: UsbSerialPort) {
-                AppApplication.instance.usbSerialPort = usbSerialPort
+                AppApplication.sPort = usbSerialPort
                 finish()
             }
         }
