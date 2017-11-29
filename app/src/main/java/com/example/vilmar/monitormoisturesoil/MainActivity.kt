@@ -113,10 +113,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateReceivedData(data: ByteArray) {
-        val message = ("Read " + data.size + " bytes: \n"
-                + HexDump.dumpHexString(data) + "\n\n")
-
-        updateText(message)
+        updateText(HexDump.dumpHexString(data))
     }
 
     private fun onDeviceStateChange() {
