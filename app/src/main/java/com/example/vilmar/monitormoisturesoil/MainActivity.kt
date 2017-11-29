@@ -2,7 +2,7 @@ package com.example.vilmar.monitormoisturesoil
 
 import android.content.Context
 import android.content.Intent
-import android.hardware.usb.UsbDevice
+import android.hardware.usb.UsbDeviceConnection
 import android.hardware.usb.UsbManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -70,12 +70,7 @@ class MainActivity : AppCompatActivity() {
 
         if (mUsbSerialPort != null) {
             val usbManager = getSystemService(Context.USB_SERVICE) as UsbManager
-            val usbDevice: UsbDevice? = mUsbSerialPort?.driver?.device
-            var connection = usbManager.openDevice(usbDevice)
-
-            if (usbDevice != null) {
-                toastIt("Vendor ${HexDump.toHexString(usbDevice.vendorId.toShort())} - Product ${HexDump.toHexString(usbDevice.productId.toShort())}")
-            }
+            val connection: UsbDeviceConnection = usbManager.openDevice(mUsbSerialPort?.driver?.device)
 
             if (connection == null) {
                 toastIt("Opening device failed")
@@ -100,22 +95,18 @@ class MainActivity : AppCompatActivity() {
                 mUsbSerialPort?.close()
             } catch (e: IOException) {
                 // Ignore.
-                toastIt("onPause")
             }
-
         }
     }
 
     private fun stopIoManager() {
         if (mSerialIoManager != null) {
-            toastIt("Stopping io manager ..")
             mSerialIoManager?.stop()
         }
     }
 
     private fun startIoManager() {
-        if (mSerialIoManager != null) {
-            toastIt("Starting io manager ..")
+        if (mUsbSerialPort != null) {
             mSerialIoManager = SerialInputOutputManager(mUsbSerialPort, mListener)
             mExecutor.submit(mSerialIoManager)
         }
@@ -134,7 +125,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateText(text: CharSequence) {
-        runOnUiThread { mValue.text = text }
+        runOnUiThread {
+            mValue.text = text
+        }
     }
 
     private fun toastIt(message: String) {
