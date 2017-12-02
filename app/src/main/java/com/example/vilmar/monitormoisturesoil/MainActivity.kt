@@ -14,7 +14,6 @@ import java.util.concurrent.Executors
 import com.hoho.android.usbserial.util.SerialInputOutputManager
 import android.widget.Toast
 import java.io.IOException
-import com.hoho.android.usbserial.util.HexDump
 
 
 
@@ -113,7 +112,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateReceivedData(data: ByteArray) {
-        updateText(String(data))
+        //toastIt("Lenght: ${data.size} = ${String(data)}")
+        if (data.size > 2) {
+            updateText(String(data).trim().toInt())
+        }
     }
 
     private fun onDeviceStateChange() {
@@ -121,13 +123,24 @@ class MainActivity : AppCompatActivity() {
         startIoManager()
     }
 
-    private fun updateText(text: CharSequence) {
+    private fun updateText(state: Int?) {
         runOnUiThread {
-            mValue.text = text
+            if (state != null) {
+                mValue.text = getStateAsString(state)
+            }
         }
     }
 
-    private fun toastIt(message: String) {
+    private fun toastIt(message: String?) {
         Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getStateAsString(state: Int) : String {
+        return when(state) {
+            0 -> "SOLO SECO"
+            1 -> "UMIDADE MODERADA"
+            2 -> "SOLO ÚMIDO"
+            else -> "NÃO FOI POSSÍVEL DETECTAR A UMIDADE DO SOLO"
+        }
     }
 }
