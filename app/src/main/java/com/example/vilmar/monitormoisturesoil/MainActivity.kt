@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateReceivedData(data: ByteArray) {
-        updateText(HexDump.dumpHexString(data))
+        updateText(String(data))
     }
 
     private fun onDeviceStateChange() {
