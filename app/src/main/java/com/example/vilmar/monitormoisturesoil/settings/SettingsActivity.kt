@@ -24,7 +24,7 @@ import com.hoho.android.usbserial.driver.UsbSerialProber
 
 class SettingsActivity : AppCompatActivity() {
 
-    private val MESSAGE_REFRESH = 101
+    private val MESSAGE_REFRESH: Int = 101
     private val REFRESH_TIMEOUT_MILLIS: Long = 5000
 
 
@@ -33,9 +33,8 @@ class SettingsActivity : AppCompatActivity() {
 
 
     private val mEntries = ArrayList<UsbSerialPort>()
+
     private lateinit var mDeviceAdapter: USBDeviceAdapter
-
-
     private lateinit var mUsbManager: UsbManager
 
 
