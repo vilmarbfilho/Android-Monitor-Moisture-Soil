@@ -1,4 +1,4 @@
-package com.example.vilmar.monitormoisturesoil
+package com.example.vilmar.monitormoisturesoil.main
 
 import android.content.Context
 import android.content.Intent
@@ -13,6 +13,8 @@ import com.hoho.android.usbserial.driver.UsbSerialPort
 import java.util.concurrent.Executors
 import com.hoho.android.usbserial.util.SerialInputOutputManager
 import android.widget.Toast
+import com.example.vilmar.monitormoisturesoil.AppApplication
+import com.example.vilmar.monitormoisturesoil.R
 import java.io.IOException
 
 

@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         android:name=".AppApplication">
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".main.MainActivity"
             android:screenOrientation="landscape" >
 
             <intent-filter>
