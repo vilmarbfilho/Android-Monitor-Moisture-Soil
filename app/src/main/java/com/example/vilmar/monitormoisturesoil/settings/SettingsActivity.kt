@@ -6,17 +6,12 @@ import android.hardware.usb.UsbManager
 import android.os.*
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.widget.ImageButton
 import com.example.vilmar.monitormoisturesoil.R
 import com.example.vilmar.monitormoisturesoil.settings.adapter.USBDeviceAdapter
 import com.hoho.android.usbserial.driver.UsbSerialPort
 import com.example.vilmar.monitormoisturesoil.AppApplication
 import com.hoho.android.usbserial.driver.UsbSerialProber
-
-
-
-
+import kotlinx.android.synthetic.main.activity_settings.*
 
 /**
  * Created by vilmar on 24/11/17.
@@ -24,13 +19,8 @@ import com.hoho.android.usbserial.driver.UsbSerialProber
 
 class SettingsActivity : AppCompatActivity() {
 
-    private val MESSAGE_REFRESH: Int = 101
-    private val REFRESH_TIMEOUT_MILLIS: Long = 5000
-
-
-    private lateinit var mBackButton: ImageButton
-    private lateinit var mRecyclerView: RecyclerView
-
+    private val MESSAGE_REFRESH = 101
+    private val REFRESH_TIMEOUT_MILLIS = 5000L
 
     private val mEntries = ArrayList<UsbSerialPort>()
 
@@ -48,30 +38,25 @@ class SettingsActivity : AppCompatActivity() {
                 else -> super.handleMessage(msg)
             }
         }
-
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        mBackButton = findViewById(R.id.ib_settings_back)
-        mBackButton.setOnClickListener {
+        ibSettingsBack.setOnClickListener {
             finish()
         }
-
-        mRecyclerView = findViewById(R.id.rv_settings_devices)
 
         setupActivity()
     }
 
     private fun setupActivity() {
-        mRecyclerView.layoutManager = LinearLayoutManager(this)
+        rvSettingsDevices.layoutManager = LinearLayoutManager(this)
 
         mDeviceAdapter = USBDeviceAdapter(mEntries, getUSBDeviceOnClick())
 
-        mRecyclerView.adapter = mDeviceAdapter
+        rvSettingsDevices.adapter = mDeviceAdapter
 
         mUsbManager = getSystemService(Context.USB_SERVICE) as UsbManager
     }
@@ -82,7 +67,8 @@ class SettingsActivity : AppCompatActivity() {
                 //toastIt("Refreshing device list ...")
                 SystemClock.sleep(1000)
 
-                val drivers = UsbSerialProber.getDefaultProber().findAllDrivers(mUsbManager)
+                val drivers =
+                        UsbSerialProber.getDefaultProber().findAllDrivers(mUsbManager)
 
                 val result = ArrayList<UsbSerialPort>()
                 for (driver in drivers) {

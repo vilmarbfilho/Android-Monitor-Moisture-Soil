@@ -6,8 +6,6 @@ import android.hardware.usb.UsbDeviceConnection
 import android.hardware.usb.UsbManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
 import com.example.vilmar.monitormoisturesoil.settings.SettingsActivity
 import com.hoho.android.usbserial.driver.UsbSerialPort
 import java.util.concurrent.Executors
@@ -15,17 +13,14 @@ import com.hoho.android.usbserial.util.SerialInputOutputManager
 import android.widget.Toast
 import com.example.vilmar.monitormoisturesoil.AppApplication
 import com.example.vilmar.monitormoisturesoil.R
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
-
 
 
 class MainActivity : AppCompatActivity() {
 
     private val BAUD_RATE: Int = 115200
     private val DATA_BITS: Int = 8
-
-    private lateinit var mValue: TextView
-    private lateinit var mSettingsButton: ImageView
 
     private var mUsbSerialPort: UsbSerialPort? = null
     private var  mSerialIoManager: SerialInputOutputManager? = null
@@ -53,10 +48,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupActivity() {
-        mValue = findViewById(R.id.tv_main_value_moisture)
-        mSettingsButton = findViewById(R.id.ib_main_settings)
-
-        mSettingsButton.setOnClickListener {
+        ibMainSettings.setOnClickListener {
             startActivity(Intent(SettingsActivity.newIntent(this)))
         }
     }
@@ -128,7 +120,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateText(state: Int?) {
         runOnUiThread {
             if (state != null) {
-                mValue.text = getStateAsString(state)
+                tvMainValueMoisture.text = getStateAsString(state)
             }
         }
     }

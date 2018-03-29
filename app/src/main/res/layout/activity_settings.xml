@@ -2,10 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".settings.SettingsActivity">
 
     <ImageButton
-        android:id="@+id/ib_settings_back"
+        android:id="@+id/ibSettingsBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -13,10 +15,11 @@
         android:src="@drawable/ic_arrow_back_white_24dp" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_settings_devices"
+        android:id="@+id/rvSettingsDevices"
         android:scrollbars="vertical"
         android:layout_marginLeft="50dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_device"/>
 
 </RelativeLayout>
