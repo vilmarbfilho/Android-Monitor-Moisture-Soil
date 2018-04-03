@@ -10,6 +10,7 @@ import com.example.vilmar.monitormoisturesoil.R
 import com.example.vilmar.monitormoisturesoil.settings.adapter.USBDeviceAdapter
 import com.hoho.android.usbserial.driver.UsbSerialPort
 import com.example.vilmar.monitormoisturesoil.AppApplication
+import com.example.vilmar.monitormoisturesoil.settings.DeviceAsyncTask.OnDeviceUpdate
 import com.hoho.android.usbserial.driver.UsbSerialProber
 import kotlinx.android.synthetic.main.activity_settings.*
 
@@ -62,33 +63,17 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun refreshDeviceList() {
-        object : AsyncTask<Void, Void, List<UsbSerialPort>>() {
-            override fun doInBackground(vararg params: Void): List<UsbSerialPort> {
-                //toastIt("Refreshing device list ...")
-                SystemClock.sleep(1000)
+        val deviceAsyncTask = DeviceAsyncTask(mUsbManager)
 
-                val drivers =
-                        UsbSerialProber.getDefaultProber().findAllDrivers(mUsbManager)
-
-                val result = ArrayList<UsbSerialPort>()
-                for (driver in drivers) {
-                    val ports = driver.ports
-                    //toastIt(String.format("+ %s: %s port%s",
-                    //        driver, Integer.valueOf(ports.size), if (ports.size == 1) "" else "s"))
-
-                    result.addAll(ports)
-                }
-
-                return result
-            }
-
-            override fun onPostExecute(result: List<UsbSerialPort>) {
+        deviceAsyncTask.onDeviceUpdate = object : OnDeviceUpdate {
+            override fun update(result: List<UsbSerialPort>) {
                 mEntries.clear()
                 mEntries.addAll(result)
                 mDeviceAdapter.notifyDataSetChanged()
             }
+        }
 
-        }.execute(null as Void?)
+        deviceAsyncTask.execute(null)
     }
 
     private fun getUSBDeviceOnClick(): USBDeviceAdapter.USBDeviceOnClick {

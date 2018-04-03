@@ -12,22 +12,28 @@ import com.hoho.android.usbserial.driver.UsbSerialProber
 
 class DeviceAsyncTask(private val mUsbManager: UsbManager) : AsyncTask<Void, Void, List<UsbSerialPort>>() {
 
+    lateinit var onDeviceUpdate: OnDeviceUpdate
+
     override fun doInBackground(vararg params: Void): List<UsbSerialPort> {
         SystemClock.sleep(1000)
 
         val drivers = UsbSerialProber.getDefaultProber().findAllDrivers(mUsbManager)
         val result = ArrayList<UsbSerialPort>()
 
-        /*for (driver in drivers) {
+        drivers.forEach { driver ->
             val ports = driver.ports
             result.addAll(ports)
-        }*/
-
-        drivers
-                .map { it.ports }
-                .forEach { result.addAll(it) }
+        }
 
         return result
+    }
+
+    override fun onPostExecute(result: List<UsbSerialPort>?) {
+        super.onPostExecute(result)
+    }
+
+    interface OnDeviceUpdate {
+        fun update(result: List<UsbSerialPort>)
     }
 
 }
