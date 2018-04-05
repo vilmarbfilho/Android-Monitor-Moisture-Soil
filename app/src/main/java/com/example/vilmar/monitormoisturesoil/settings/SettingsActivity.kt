@@ -11,7 +11,6 @@ import com.example.vilmar.monitormoisturesoil.settings.adapter.USBDeviceAdapter
 import com.hoho.android.usbserial.driver.UsbSerialPort
 import com.example.vilmar.monitormoisturesoil.AppApplication
 import com.example.vilmar.monitormoisturesoil.settings.DeviceAsyncTask.OnDeviceUpdate
-import com.hoho.android.usbserial.driver.UsbSerialProber
 import kotlinx.android.synthetic.main.activity_settings.*
 
 /**

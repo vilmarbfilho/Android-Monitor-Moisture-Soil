@@ -29,7 +29,8 @@ class DeviceAsyncTask(private val mUsbManager: UsbManager) : AsyncTask<Void, Voi
     }
 
     override fun onPostExecute(result: List<UsbSerialPort>?) {
-        super.onPostExecute(result)
+        onDeviceUpdate.update(result ?: listOf())
+
     }
 
     interface OnDeviceUpdate {
