@@ -6,12 +6,20 @@
     android:background="@color/colorBackground"
     tools:context="com.example.vilmar.monitormoisturesoil.main.MainActivity">
 
+    <ImageView
+        android:id="@+id/ivSmile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_smile"/>
+
     <TextView
         android:id="@+id/tvMainValueMoisture"
+        android:layout_below="@+id/ivSmile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="value" />
+        tools:text="value" />
 
     <ImageButton
         android:id="@+id/ibMainSettings"
