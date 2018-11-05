@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="padding_settings">10dp</dimen>
+    <dimen name="margin_left_settings">50dp</dimen>
+
     <dimen name="radius_item">4dp</dimen>
     <dimen name="height_detail_item">50dp</dimen>
 
