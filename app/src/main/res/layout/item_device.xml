@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
-    android:paddingRight="5dp"
-    android:paddingTop="5dp">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cvDeviceadapterContainer"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        card_view:cardCornerRadius="4dp">
+        card_view:cardCornerRadius="@dimen/radius_item"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="parent">
 
         <TextView
             android:id="@+id/tvDeviceadapterDetail"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/height_detail_item"
             android:gravity="center"
             tools:text="Vendor 1A86 - Product 7523" />
 
     </android.support.v7.widget.CardView>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
