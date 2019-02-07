@@ -10,9 +10,9 @@ import com.example.vilmar.monitormoisturesoil.settings.SettingsActivity
 import com.hoho.android.usbserial.driver.UsbSerialPort
 import java.util.concurrent.Executors
 import com.hoho.android.usbserial.util.SerialInputOutputManager
-import android.widget.Toast
 import com.example.vilmar.monitormoisturesoil.AppApplication
 import com.example.vilmar.monitormoisturesoil.R
+import com.example.vilmar.monitormoisturesoil.toastIt
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
 
@@ -35,7 +35,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onNewData(data: ByteArray) {
-            this@MainActivity.runOnUiThread({ this@MainActivity.updateReceivedData(data) })
+            this@MainActivity.runOnUiThread {
+                this@MainActivity.updateReceivedData(data)
+            }
         }
     }
 
@@ -123,10 +125,6 @@ class MainActivity : AppCompatActivity() {
                 tvMainValueMoisture.text = getStateAsString(state)
             }
         }
-    }
-
-    private fun toastIt(message: String?) {
-        Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun getStateAsString(state: Int) : String {
