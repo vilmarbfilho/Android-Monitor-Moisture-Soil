@@ -19,16 +19,16 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
-    private val BAUD_RATE: Int = 115200
-    private val DATA_BITS: Int = 8
+    private val baudRate: Int = 115200
+    private val dataBits: Int = 8
 
-    private var mUsbSerialPort: UsbSerialPort? = null
-    private var  mSerialIoManager: SerialInputOutputManager? = null
+    private var usbSerialPort: UsbSerialPort? = null
+    private var  serialIoManager: SerialInputOutputManager? = null
 
-    private val mExecutor = Executors.newSingleThreadExecutor()
+    private val executor = Executors.newSingleThreadExecutor()
 
 
-    private val mListener = object : SerialInputOutputManager.Listener {
+    private val listener = object : SerialInputOutputManager.Listener {
 
         override fun onRunError(e: Exception) {
             toastIt("Runner stopped.")
@@ -61,19 +61,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupUSB() {
-        mUsbSerialPort = AppApplication.sPort
+        usbSerialPort = AppApplication.sPort
 
-        if (mUsbSerialPort != null) {
+        if (usbSerialPort != null) {
             val usbManager = getSystemService(Context.USB_SERVICE) as UsbManager
-            val connection: UsbDeviceConnection = usbManager.openDevice(mUsbSerialPort?.driver?.device)
+            val connection: UsbDeviceConnection = usbManager.openDevice(usbSerialPort?.driver?.device)
 
             if (connection == null) {
                 toastIt("Opening device failed")
                 return
             }
 
-            mUsbSerialPort?.open(connection)
-            mUsbSerialPort?.setParameters(BAUD_RATE, DATA_BITS, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE)
+            usbSerialPort?.open(connection)
+            usbSerialPort?.setParameters(baudRate, dataBits, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE)
 
         } else {
             toastIt("No serial device.")
@@ -85,9 +85,9 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         stopIoManager()
-        if (mUsbSerialPort != null) {
+        if (usbSerialPort != null) {
             try {
-                mUsbSerialPort?.close()
+                usbSerialPort?.close()
             } catch (e: IOException) {
                 // Ignore.
             }
@@ -95,15 +95,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun stopIoManager() {
-        if (mSerialIoManager != null) {
-            mSerialIoManager?.stop()
+        if (serialIoManager != null) {
+            serialIoManager?.stop()
         }
     }
 
     private fun startIoManager() {
-        if (mUsbSerialPort != null) {
-            mSerialIoManager = SerialInputOutputManager(mUsbSerialPort, mListener)
-            mExecutor.submit(mSerialIoManager)
+        if (usbSerialPort != null) {
+            serialIoManager = SerialInputOutputManager(usbSerialPort, listener)
+            executor.submit(serialIoManager)
         }
     }
 
