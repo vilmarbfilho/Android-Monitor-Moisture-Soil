@@ -19,21 +19,21 @@ import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity() {
 
-    private val MESSAGE_REFRESH = 101
-    private val REFRESH_TIMEOUT_MILLIS = 5000L
+    private val messageRefresh = 101
+    private val refreshTimeoutMillis = 5000L
 
-    private val mEntries = ArrayList<UsbSerialPort>()
+    private val entries = ArrayList<UsbSerialPort>()
 
-    private lateinit var mDeviceAdapter: USBDeviceAdapter
-    private lateinit var mUsbManager: UsbManager
+    private lateinit var deviceAdapter: USBDeviceAdapter
+    private lateinit var usbManager: UsbManager
 
 
-    private val mHandler = object : Handler() {
+    private val handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
-                MESSAGE_REFRESH -> {
+                messageRefresh -> {
                     refreshDeviceList()
-                    this.sendEmptyMessageDelayed(MESSAGE_REFRESH, REFRESH_TIMEOUT_MILLIS)
+                    this.sendEmptyMessageDelayed(messageRefresh, refreshTimeoutMillis)
                 }
                 else -> super.handleMessage(msg)
             }
@@ -54,21 +54,21 @@ class SettingsActivity : AppCompatActivity() {
     private fun setupActivity() {
         rvSettingsDevices.layoutManager = LinearLayoutManager(this)
 
-        mDeviceAdapter = USBDeviceAdapter(mEntries, getUSBDeviceOnClick())
+        deviceAdapter = USBDeviceAdapter(entries, getUSBDeviceOnClick())
 
-        rvSettingsDevices.adapter = mDeviceAdapter
+        rvSettingsDevices.adapter = deviceAdapter
 
-        mUsbManager = getSystemService(Context.USB_SERVICE) as UsbManager
+        usbManager = getSystemService(Context.USB_SERVICE) as UsbManager
     }
 
     private fun refreshDeviceList() {
-        val deviceAsyncTask = DeviceAsyncTask(mUsbManager)
+        val deviceAsyncTask = DeviceAsyncTask(usbManager)
 
         deviceAsyncTask.onDeviceUpdate = object : OnDeviceUpdate {
             override fun update(result: List<UsbSerialPort>) {
-                mEntries.clear()
-                mEntries.addAll(result)
-                mDeviceAdapter.notifyDataSetChanged()
+                entries.clear()
+                entries.addAll(result)
+                deviceAdapter.notifyDataSetChanged()
             }
         }
 
@@ -86,12 +86,12 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        mHandler.sendEmptyMessage(MESSAGE_REFRESH)
+        handler.sendEmptyMessage(messageRefresh)
     }
 
     override fun onPause() {
         super.onPause()
-        mHandler.removeMessages(MESSAGE_REFRESH)
+        handler.removeMessages(messageRefresh)
     }
 
     companion object {
