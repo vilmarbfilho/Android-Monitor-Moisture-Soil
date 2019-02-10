@@ -19,6 +19,7 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
+    private val requestCodeMain = 1
     private val baudRate: Int = 115200
     private val dataBits: Int = 8
 
@@ -26,7 +27,6 @@ class MainActivity : AppCompatActivity() {
     private var  serialIoManager: SerialInputOutputManager? = null
 
     private val executor = Executors.newSingleThreadExecutor()
-
 
     private val listener = object : SerialInputOutputManager.Listener {
 
@@ -46,12 +46,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupActivity()
-
     }
 
     private fun setupActivity() {
         ibMainSettings.setOnClickListener {
-            startActivity(Intent(SettingsActivity.newIntent(this)))
+            startActivityForResult(Intent(SettingsActivity.newIntent(this)), requestCodeMain)
         }
     }
 
@@ -61,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupUSB() {
-        usbSerialPort = AppApplication.sPort
+        usbSerialPort = AppApplication.usbSerialPort
 
         if (usbSerialPort != null) {
             val usbManager = getSystemService(Context.USB_SERVICE) as UsbManager

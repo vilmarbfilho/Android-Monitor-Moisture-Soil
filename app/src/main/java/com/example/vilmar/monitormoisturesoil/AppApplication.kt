@@ -19,7 +19,7 @@ class AppApplication : Application() {
 
     companion object {
         lateinit var instance: AppApplication
-        var sPort: UsbSerialPort? = null
+        var usbSerialPort: UsbSerialPort? = null
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.vilmar.monitormoisturesoil.settings
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.hardware.usb.UsbManager
@@ -26,7 +27,6 @@ class SettingsActivity : AppCompatActivity() {
 
     private lateinit var deviceAdapter: USBDeviceAdapter
     private lateinit var usbManager: UsbManager
-
 
     private val handler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -78,7 +78,7 @@ class SettingsActivity : AppCompatActivity() {
     private fun getUSBDeviceOnClick(): USBDeviceAdapter.USBDeviceOnClick {
         return object : USBDeviceAdapter.USBDeviceOnClick {
             override fun onClickDevice(usbSerialPort: UsbSerialPort) {
-                AppApplication.sPort = usbSerialPort
+                AppApplication.usbSerialPort = usbSerialPort
                 finish()
             }
         }
