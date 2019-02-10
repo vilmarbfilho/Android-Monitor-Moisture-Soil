@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="size_image">500dp</dimen>
+    <dimen name="size_image_clover">200dp</dimen>
+    <dimen name="size_image_smile">64dp</dimen>
 
     <dimen name="padding_cardview">5dp</dimen>
     <dimen name="padding_settings">10dp</dimen>
+
     <dimen name="margin_left_settings">50dp</dimen>
+    <dimen name="margin_top_clover">30dp</dimen>
 
     <dimen name="radius_item">4dp</dimen>
+
     <dimen name="height_detail_item">50dp</dimen>
 
 </resources>
