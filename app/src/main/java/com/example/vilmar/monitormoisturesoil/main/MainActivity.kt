@@ -2,6 +2,7 @@ package com.example.vilmar.monitormoisturesoil.main
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.hardware.usb.UsbDeviceConnection
 import android.hardware.usb.UsbManager
 import android.support.v7.app.AppCompatActivity
@@ -109,7 +110,8 @@ class MainActivity : AppCompatActivity() {
     private fun updateReceivedData(data: ByteArray) {
         //toastIt("Lenght: ${data.size} = ${String(data)}")
         if (data.size > 2) {
-            updateText(String(data).trim().toInt())
+            val drawable = getSmileDrawableByState(String(data).trim().toInt())
+            updateSmileImage(drawable)
         }
     }
 
@@ -118,20 +120,26 @@ class MainActivity : AppCompatActivity() {
         startIoManager()
     }
 
-    private fun updateText(state: Int?) {
-        runOnUiThread {
-            if (state != null) {
-                tvMainValueMoisture.text = getStateAsString(state)
-            }
+    private fun getSmileDrawableByState(state : Int): Drawable {
+        return when(state) {
+            // just dry
+            0 -> getDrawable(R.drawable.ic_smile_bad)
+
+            // moderate humidity
+            1 -> getDrawable(R.drawable.ic_smile_normal)
+
+            // moist soil
+            2 -> getDrawable(R.drawable.ic_smile_happy)
+
+            // do not detected reading
+            else -> getDrawable(R.drawable.ic_smile_normal)
         }
     }
 
-    private fun getStateAsString(state: Int) : String {
-        return when(state) {
-            0 -> "SOLO SECO"
-            1 -> "UMIDADE MODERADA"
-            2 -> "SOLO ÚMIDO"
-            else -> "NÃO FOI POSSÍVEL DETECTAR A UMIDADE DO SOLO"
+    private fun updateSmileImage(drawable : Drawable) {
+        runOnUiThread {
+            ivSmile.setImageDrawable(drawable)
         }
     }
+
 }
