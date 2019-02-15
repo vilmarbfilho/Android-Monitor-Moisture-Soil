@@ -21,8 +21,12 @@ import java.io.IOException
 class MainActivity : AppCompatActivity() {
 
     private val requestCodeMain = 1
-    private val baudRate: Int = 115200
-    private val dataBits: Int = 8
+    private val baudRate = 115200
+    private val dataBits = 8
+
+    private val justDry = 0
+    private val moderateHumidity = 1
+    private val moistSoil = 2
 
     private var usbSerialPort: UsbSerialPort? = null
     private var  serialIoManager: SerialInputOutputManager? = null
@@ -123,13 +127,13 @@ class MainActivity : AppCompatActivity() {
     private fun getSmileDrawableByState(state : Int): Drawable {
         return when(state) {
             // just dry
-            0 -> getDrawable(R.drawable.ic_smile_bad)
+            justDry -> getDrawable(R.drawable.ic_smile_bad)
 
             // moderate humidity
-            1 -> getDrawable(R.drawable.ic_smile_normal)
+            moderateHumidity -> getDrawable(R.drawable.ic_smile_normal)
 
             // moist soil
-            2 -> getDrawable(R.drawable.ic_smile_happy)
+            moistSoil -> getDrawable(R.drawable.ic_smile_happy)
 
             // do not detected reading
             else -> getDrawable(R.drawable.ic_smile_normal)
