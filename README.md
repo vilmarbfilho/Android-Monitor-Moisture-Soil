@@ -23,6 +23,10 @@ Materials
 ![](images/plant.png)
 ...
 
+Scheme Arduino
+---------------
+![](arduino/scheme_moisture_detect.png)
+
 
 Conclusion
 ------------
