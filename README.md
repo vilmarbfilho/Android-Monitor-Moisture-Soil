@@ -1,4 +1,4 @@
-Android Monitor Moisture Soil [WIP]
+Android Monitor Moisture Soil
 =======
 
 A project for arduino communicate with android device using OTG
@@ -11,26 +11,38 @@ Description
 This project is a sample for testing the communication of arduino with a android device using OTG.
 
 For this case, I am using a moisture sensor, where I will perform soil readings.
-...
 
 
 Materials
 ------------
 ![](images/hardware.png)
-...
+Hardware used for this project.
 
 
 ![](images/plant.png)
-...
+Vessel of plant where we will perform the measurement of soil moisture.
 
-Scheme Arduino
----------------
+
+Scheme Arduino + Sensor
+---------------------------
 ![](arduino/scheme_moisture_detect.png)
 
 
-Conclusion
+States
 ------------
-...
+![](arduino/smile_sad.png)
+Informs that the soil needs to be watered because it is very dry.
+
+![](arduino/smile_normal.png)
+Informs that the soil is at normal humidity.
+
+![](arduino/smile_happy.png)
+Informs that the soil is moist enough for the plant.
+
+
+Demonstration
+----------------
+[![Android Monitor Moisture Soil](https://img.youtube.com/vi/67cqbQXxT_k/0.jpg)](https://www.youtube.com/watch?v=67cqbQXxT_k)
 
 
 License
