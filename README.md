@@ -33,17 +33,20 @@ Scheme Arduino + Sensor
 States
 ------------
 - **SAD**
+
 Informs that the soil needs to be watered because it is very dry.
 
 ![](images/smile_sad.png)
 
 - **NORMAL**
+
 Informs that the soil is at normal humidity.
 
 ![](images/smile_normal.png)
 
 
 - **HAPPY**
+
 Informs that the soil is moist enough for the plant.
 
 ![](images/smile_happy.png)
