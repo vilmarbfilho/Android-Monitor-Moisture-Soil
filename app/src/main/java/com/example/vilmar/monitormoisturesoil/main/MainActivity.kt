@@ -7,6 +7,7 @@ import android.hardware.usb.UsbDeviceConnection
 import android.hardware.usb.UsbManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import com.example.vilmar.monitormoisturesoil.settings.SettingsActivity
 import com.hoho.android.usbserial.driver.UsbSerialPort
 import java.util.concurrent.Executors
@@ -127,16 +128,16 @@ class MainActivity : AppCompatActivity() {
     private fun getSmileDrawableByState(state : Int): Drawable {
         return when(state) {
             // just dry
-            justDry -> getDrawable(R.drawable.ic_smile_bad)
+            justDry -> ContextCompat.getDrawable(this, R.drawable.ic_smile_bad)!!
 
             // moderate humidity
-            moderateHumidity -> getDrawable(R.drawable.ic_smile_normal)
+            moderateHumidity -> ContextCompat.getDrawable(this, R.drawable.ic_smile_normal)!!
 
             // moist soil
-            moistSoil -> getDrawable(R.drawable.ic_smile_happy)
+            moistSoil -> ContextCompat.getDrawable(this, R.drawable.ic_smile_happy)!!
 
             // do not detected reading
-            else -> getDrawable(R.drawable.ic_smile_normal)
+            else -> ContextCompat.getDrawable(this, R.drawable.ic_smile_normal)!!
         }
     }
 

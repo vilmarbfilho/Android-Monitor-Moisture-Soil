@@ -16,17 +16,17 @@ void loop() {
 
   if (value_analogic > 0 && value_analogic < 400)
   {
-    Serial.print(just_dry);
+    Serial.println(moist_soil);
   }
 
   if (value_analogic > 400 && value_analogic < 800)
   {
-    Serial.print(moderate_humidity);
+    Serial.println(moderate_humidity);
   }
 
   if (value_analogic > 800 && value_analogic < 1024)
   {
-    Serial.print(moist_soil);
+    Serial.println(just_dry);
   }
 
   delay(500);
