@@ -15,14 +15,14 @@ For this case, I am using a moisture sensor, where I will perform soil readings.
 
 Materials
 ------------
-![](images/hardware.png)
-
 Hardware used for this project.
 
+![](images/hardware.png)
 
-![](images/plant.png)
 
 Vessel of plant where we will perform the measurement of soil moisture.
+
+![](images/plant.png)
 
 
 Scheme Arduino + Sensor
@@ -32,17 +32,21 @@ Scheme Arduino + Sensor
 
 States
 ------------
+- **SAD**
+Informs that the soil needs to be watered because it is very dry.
+
 ![](images/smile_sad.png)
 
-Informs that the soil needs to be watered because it is very dry.
+- **NORMAL**
+Informs that the soil is at normal humidity.
 
 ![](images/smile_normal.png)
 
-Informs that the soil is at normal humidity.
+
+- **HAPPY**
+Informs that the soil is moist enough for the plant.
 
 ![](images/smile_happy.png)
-
-Informs that the soil is moist enough for the plant.
 
 
 Demonstration
