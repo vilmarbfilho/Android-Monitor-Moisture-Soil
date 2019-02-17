@@ -57,6 +57,11 @@ Demonstration
 [![Android Monitor Moisture Soil](https://img.youtube.com/vi/67cqbQXxT_k/0.jpg)](https://www.youtube.com/watch?v=67cqbQXxT_k)
 
 
+Libs
+------
+https://github.com/mik3y/usb-serial-for-android
+
+
 License
 --------
 
